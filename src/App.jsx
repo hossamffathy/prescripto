@@ -26,13 +26,13 @@ import ProfilePage, { profileLoader } from './features/user/ProfilePage';
 import Career, { careerAction } from './features/doctorsPage/Career';
 import AuthUserLayout from './AuthUserLayout';
 import DoctorManagment from './features/doctorsPage/DoctorManagment';
-import Pharmaceuticals from './features/pharmaceuticals/Pharmaceuticals';
+import Pharmaceuticals from "./features/Pharmaceuticals/Pharmaceuticals"
 import AuthDoctorLayout from './AuthDoctorLayout';
 import AuthAdminLayout from './AuthAdminLayout';
 import Patients from './features/admin/Patients';
 import Reviews from './features/admin/Reviews';
 import MyReviews, { patientReviewsLoader } from './features/user/MyReviews';
-import TestPage from './features/doctorsPage/TestPage';
+
 import FactoryList from './features/user/FactoryList';
 import Factroies from './features/admin/Factroies';
 import DoctorProfile ,{doctorProfileLoader} from './features/doctorsPage/DoctorProfile';
