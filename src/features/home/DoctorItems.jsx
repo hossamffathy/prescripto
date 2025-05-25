@@ -2,7 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import DoctorItem from "./DoctorItem";
 import { useState } from "react";
 import StarRating from "../doctors/StarRating";
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function DoctorItems() {
   const doctors = useLoaderData();
   const [visibleCount, setVisibleCount] = useState(8);
@@ -65,7 +65,7 @@ console.log(doctors)
 
 
 export async function fetchDoctors() {
-  const res = await fetch("/api/v1/doctors?limit=999999&page=1"); ///api/v1/doctors/topdoctors
+  const res = await fetch(`${BASE_URL}/api/v1/doctors?limit=999999&page=1`); ///api/v1/doctors/topdoctors
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Failed to load doctors.");
   return data.allDoctors ; //data.topDoctors

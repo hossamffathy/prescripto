@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function ChatbotPage() {
   const [messages, setMessages] = useState([
     { sender: 'bot', text: '👋 Hi! I’m Prescripto Assistant, how can I help you today?' }
@@ -20,7 +20,7 @@ export default function ChatbotPage() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/v1/gemini-chat/message', {
+      const res = await fetch(`${BASE_URL}/api/v1/gemini-chat/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chatId, message: input }),

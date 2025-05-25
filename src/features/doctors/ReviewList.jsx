@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { format, parseISO } from 'date-fns';
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function ReviewList({ reviews }) {
   //to edit review
   console.log(reviews);
@@ -26,7 +27,7 @@ export default function ReviewList({ reviews }) {
   const handleSaveEdit = async (id) => {
     // تحقق من صحة البيانات هنا لو حبيت
     try {
-      const res = await fetch(`/api/v1/reviews/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/reviews/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

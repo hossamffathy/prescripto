@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Star, Pencil, Trash } from "lucide-react";
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function MyReviews() {
   const initialReviews = useLoaderData();
   const [reviews, setReviews] = useState(initialReviews);
@@ -27,7 +27,7 @@ export default function MyReviews() {
 
   const handleUpdate = async (id) => {
     try {
-      const res = await fetch(`/api/v1/reviews/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/reviews/${id}`, {
         method: "PATCH",
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
@@ -59,7 +59,7 @@ export default function MyReviews() {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`/api/v1/reviews/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/reviews/${id}`, {
         method: "DELETE",
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`,
@@ -213,7 +213,7 @@ export async function patientReviewsLoader({ request }) {
   const limit = url.searchParams.get("limit") || 10;
 
   try {
-    const res = await fetch(`/api/v1/reviews/patient/reviews?page=${page}&limit=${limit}`, {
+    const res = await fetch(`${BASE_URL}/api/v1/reviews/patient/reviews?page=${page}&limit=${limit}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem("token")}`,
         'Content-Type': 'application/json'

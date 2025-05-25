@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function Patients() {
   const [patients, setPatients] = useState([]);
   const [page, setPage] = useState(1);
@@ -11,7 +11,7 @@ export default function Patients() {
   const fetchPatients = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/patients?limit=${limit}&page=${page}`);
+      const res = await fetch(`${BASE_URL}/api/v1/patients?limit=${limit}&page=${page}`);
       const data = await res.json();
       setPatients(data.Patients);
       // If total count is returned by API, calculate total pages:

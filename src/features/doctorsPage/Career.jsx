@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, useActionData, redirect } from "react-router-dom";
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const SPECIALIZATIONS = [
   "Allergist", "Andrologist", "Anesthesiologist", "Audiologist", "Cardiologist",
   "Cardiothoracic Surgeon", "Dentist", "Dermatologist", "Endocrinologist",
@@ -162,7 +162,7 @@ export async function careerAction({ request }) {
   }
 
   try {
-    const res = await fetch("/api/v1/doctors/signup", {
+    const res = await fetch(`${BASE_URL}/api/v1/doctors/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

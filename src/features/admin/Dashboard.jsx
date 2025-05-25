@@ -1,10 +1,10 @@
 import { Users, CalendarCheck, UserCheck, Clock9 } from 'lucide-react';
-import { useState ,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import AllDoctors from './DashboardItems/AllDoctors';
 import PendingDoctor from './DashboardItems/PendingDoctor';
 import PatientsItems from './DashboardItems/PatientsItems';
-
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function Dashboard() {
   const { Doctors, Appointments, Patients, PendingDoctors } = useLoaderData();
 
@@ -17,29 +17,25 @@ export default function Dashboard() {
     PendingDoctors.pendingDoctors
   );
 
+  useEffect(() => {
+    const reloadData = async () => {
+      const [res1, res2, res3] = await Promise.all([
+        fetch(`${BASE_URL}/api/v1/doctors?limit=999999&page=1`),
+        fetch(`${BASE_URL}/api/v1/patients?limit=999999&page=1`),
+        fetch(`${BASE_URL}/api/v1/doctors/pending`),
+      ]);
 
+      const newDoctors = await res1.json();
+      const newPatients = await res2.json();
+      const newPending = await res3.json();
 
-useEffect(() => {
-  const reloadData = async () => {
-    const [res1, res2, res3] = await Promise.all([
-      fetch('/api/v1/doctors?limit=999999&page=1'),
-      fetch('/api/v1/patients?limit=999999&page=1'),
-      fetch('/api/v1/doctors/pending'),
-    ]);
+      setDoctorList(newDoctors.allDoctors);
+      setPatientsList(newPatients.Patients);
+      setUnactivatedDoctors(newPending.pendingDoctors);
+    };
 
-    const newDoctors = await res1.json();
-    const newPatients = await res2.json();
-    const newPending = await res3.json();
-
-    setDoctorList(newDoctors.allDoctors);
-    setPatientsList(newPatients.Patients);
-    setUnactivatedDoctors(newPending.pendingDoctors);
-  };
-
-  reloadData();
-}, [doctorList, patientsList, unactivatedDoctors]);
-
-
+    reloadData();
+  }, [doctorList, patientsList, unactivatedDoctors]);
 
   const stats = [
     {
@@ -128,11 +124,11 @@ useEffect(() => {
 
 export async function dashboardLoader() {
   const [res1, res2, res3, res4] = await Promise.all([
-    fetch('/api/v1/doctors'),
-    fetch('/api/v1/appointments'),
-    fetch('/api/v1/patients?limit=999999&page=1'),
+    fetch(`${BASE_URL}/api/v1/doctors`),
+    fetch(`${BASE_URL}/api/v1/appointments`),
+    fetch(`${BASE_URL}/api/v1/patients?limit=999999&page=1`),
 
-    fetch('/api/v1/doctors/pending'),
+    fetch(`${BASE_URL}/api/v1/doctors/pending`),
   ]);
 
   const allDoctors = await res1.json();

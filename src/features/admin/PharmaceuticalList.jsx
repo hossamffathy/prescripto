@@ -7,7 +7,7 @@ import {
   Trash2,
   Loader2,
 } from 'lucide-react';
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function PharmaceuticalList() {
   const [medicines, setMedicines] = useState([]);
   const [page, setPage] = useState(1);
@@ -16,7 +16,7 @@ export default function PharmaceuticalList() {
   const [editId, setEditId] = useState('');
   const [editData, setEditData] = useState({});
   const [loadingId, setLoadingId] = useState('');
-  const BASE_URL = '/api/v1/pharmaceuticals';
+  
 
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
@@ -35,7 +35,7 @@ export default function PharmaceuticalList() {
       includeExpired,
     });
 
-    const response = await fetch(`${BASE_URL}?${params.toString()}`);
+    const response = await fetch(`${BASE_URL}/api/v1/pharmaceuticals?${params.toString()}`);
     const data = await response.json();
     setMedicines(data.data);
     setTotal(data.total);
@@ -51,7 +51,7 @@ export default function PharmaceuticalList() {
 
     setLoadingId(id);
     try {
-      const res = await fetch(`/api/v1/pharmaceuticals/by-id/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/pharmaceuticals/by-id/${id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Delete failed');
@@ -65,7 +65,7 @@ export default function PharmaceuticalList() {
 
   const handleUpdate = async (id) => {
     try {
-      const res = await fetch(`/api/v1/pharmaceuticals/by-id/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/pharmaceuticals/by-id/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editData),

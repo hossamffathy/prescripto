@@ -1,6 +1,6 @@
 import { Loader2, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function Factories() {
   const [factories, setFactories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ export default function Factories() {
   const fetchFactories = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/factories?page=${page}&limit=${limit}`);
+      const res = await fetch(`${BASE_URL}/api/v1/factories?page=${page}&limit=${limit}`);
       const data = await res.json();
       setFactories(data.data || []);
       setTotalPages(Math.ceil(data.total / limit) || 1);
@@ -52,7 +52,7 @@ export default function Factories() {
   // PATCH
   const handleUpdate = async (id) => {
     try {
-      const res = await fetch(`/api/v1/factories/by-id/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/factories/by-id/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editData),

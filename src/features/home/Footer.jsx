@@ -20,23 +20,24 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><a href="/about" className="hover:text-blue-600 transition">About Us</a></li>
               <li><a href="/career" className="hover:text-blue-600 transition">Careers</a></li>
-              <li><a href="#" className="hover:text-blue-600 transition">Blog</a></li>
+              
+             
             </ul>
           </div>
           <div>
             <h3 className="font-semibold text-gray-800 mb-3">Support</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-blue-600 transition">Help Center</a></li>
-              <li><a href="contact" className="hover:text-blue-600 transition">Contact Us</a></li>
-              <li><a href="#" className="hover:text-blue-600 transition">Privacy Policy</a></li>
+              <li><a href="/chatbot" className="hover:text-blue-600 transition">Help Center</a></li>
+              <li><a href="/contact" className="hover:text-blue-600 transition">Contact Us</a></li>
+             <li><a href="/factories" className="hover:text-blue-600 transition">Factories</a></li>
             </ul>
           </div>
           <div>
             <h3 className="font-semibold text-gray-800 mb-3">Services</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-blue-600 transition">Find a Doctor</a></li>
-              <li><a href="#" className="hover:text-blue-600 transition">Online Consultation</a></li>
-              <li><a href="/factories" className="hover:text-blue-600 transition">Factories</a></li>
+              <li><a href="/doctors" className="hover:text-blue-600 transition">Find a Doctor</a></li>
+              
+             <li><a href="/pharmaceuticals" className="hover:text-blue-600 transition">Pharmaceuticals</a></li>
             </ul>
           </div>
         </div>

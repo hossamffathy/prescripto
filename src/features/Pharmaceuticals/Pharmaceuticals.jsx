@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DollarSign, Calendar, Factory, Package } from 'lucide-react';
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const BASE_URL = 'api/v1/pharmaceuticals';
 
 export default function Pharmaceuticals() {
   const [medicines, setMedicines] = useState([]);
@@ -25,7 +25,7 @@ export default function Pharmaceuticals() {
       includeExpired,
     });
 
-    const response = await fetch(`${BASE_URL}?${params.toString()}`);
+    const response = await fetch(`${BASE_URL}/api/v1/pharmaceuticals?${params.toString()}`);
     const data = await response.json();
     setMedicines(data.data);
     setTotal(data.total);

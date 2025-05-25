@@ -4,7 +4,7 @@
 
 
 import { useLoaderData } from "react-router-dom";
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 import React, { useState } from "react";
 import { CalendarCheck, UserCircle } from "lucide-react";
 import {Link} from "react-router-dom"
@@ -12,7 +12,7 @@ import DoctorItem from "../home/DoctorItem";
 export default function DoctorsList(){
     const allDoctors  = useLoaderData();
     
-  
+ 
  
     
   
@@ -42,7 +42,7 @@ export default function DoctorsList(){
     );
   }
   export async function doctorsList() {
-    const res = await fetch("/api/v1/doctors");
+    const res = await fetch(`${BASE_URL}/api/v1/doctors`);
     const data = await res.json();
   
    

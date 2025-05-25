@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const STATUSES = ['active', 'inactive', 'suspended'];
 const CERTIFICATION_STATUSES = ['valid', 'expired', 'pending'];
 
@@ -67,7 +67,7 @@ export default function FactoryForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/v1/factories', {
+      const res = await fetch(`${BASE_URL}/api/v1/factories`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

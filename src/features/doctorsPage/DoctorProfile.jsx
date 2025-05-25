@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function DoctorProfile() {
   const userData = useLoaderData();
   const [edit, setEdit] = useState(false);
@@ -43,7 +43,7 @@ export default function DoctorProfile() {
     if (imageFile) formData.append("photo", imageFile);
 
     try {
-      const res = await fetch("/api/v1/users/updateInfo", {
+      const res = await fetch(`${BASE_URL}/api/v1/users/updateInfo`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -162,7 +162,7 @@ const EditableSelect = ({ label, value, edit, onChange, options }) => (
 
 // Loader
 export async function doctorProfileLoader() {
-  const res = await fetch("/api/v1/users/myData", {
+  const res = await fetch(`${BASE_URL}/api/v1/users/myData`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,

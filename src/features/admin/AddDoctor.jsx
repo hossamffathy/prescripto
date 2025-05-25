@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserCircle } from 'lucide-react';
-
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function AddDoctorForm() {
   const [formData, setFormData] = useState({
     name: '',

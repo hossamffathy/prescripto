@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function ForgetPassword({ onBack, setShowConfirm }) {
   const [resetMessage, setResetMessage] = useState(null);
   const [emailForReset, setEmailForReset] = useState('');
@@ -8,7 +8,7 @@ export default function ForgetPassword({ onBack, setShowConfirm }) {
 
   const handleForgotPassword = async () => {
     try {
-      const res = await fetch('/api/v1/users/forgotPassword', {
+      const res = await fetch(`${BASE_URL}/api/v1/users/forgotPassword`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailForReset }),

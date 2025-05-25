@@ -6,6 +6,7 @@ import { format, parseISO } from 'date-fns';
 import { useSelector } from 'react-redux';
 import StarRating from "./StarRating"
 import ReviewList from"./ReviewList"
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function DoctorProfilePage() {
   const { doctorProfile, availableDays, reviews } = useLoaderData();
 const avgRating = reviews.length
@@ -87,7 +88,7 @@ const params=useParams()
     const review = { rating, comment };
 
     try {
-      const res = await fetch(`/api/v1/reviews/doctor/${doctorProfile._id}`, {
+      const res = await fetch(`${BASE_URL}/api/v1/reviews/doctor/${doctorProfile._id}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -116,7 +117,7 @@ const handleBooking = async (params) => {
   try {
     const id = params.id;
     // 1. استرجاع قائمة الـ TimeBlocks
-    const res2 = await fetch(`/api/v1/appointments/all/${id}`);
+    const res2 = await fetch(`${BASE_URL}/api/v1/appointments/all/${id}`);
     const appointmentData = await res2.json();
     // 2. إيجاد الـ block المناسب
     const selectedBlock = appointmentData.allAppointments.find(
@@ -130,7 +131,7 @@ const handleBooking = async (params) => {
     console.log(selectedBlock ,selectedTimeSlot.fullISO)
 
     // 3. إرسال طلب إنشاء جلسة Stripe
-    const res = await fetch(`/api/v1/bookings/checkoutsession/${selectedBlock._id}`, {
+    const res = await fetch(`${BASE_URL}/api/v1/bookings/checkoutsession/${selectedBlock._id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -155,42 +156,6 @@ const handleBooking = async (params) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-  // const handleBooking = async () => {
-  //   if (!selectedTimeSlot || !selectedDate) return alert("Select a time slot first.");
-
-    // const payload = {
-    //   doctorId: doctorProfile._id,
-    //   date: selectedTimeSlot.fullISO,
-    //   timeSlot: selectedTimeSlot.id,
-    // };
-
-
-  //   try {
-  //     const res = await fetch('/api/v1/appointments/book', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(payload),
-  //     });
-
-  //     const data = await res.json();
-  //     if (!res.ok) throw new Error(data.message || "Failed to book.");
-
-  //     alert("✅ Appointment booked successfully!");
-  //   } catch (err) {
-  //     alert(`❌ ${err.message}`);
-  //   }
-  // };
 
   return (
     <div className="mx-auto my-8 max-w-[1200px] rounded-lg bg-white p-6 shadow-lg">

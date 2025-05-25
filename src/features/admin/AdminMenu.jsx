@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 import { adminlogout } from './adminSlice';
 
 export default function AdminMenu() {
-    const navigate=useNavigate()
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const menuRef = useRef();
@@ -33,39 +33,27 @@ export default function AdminMenu() {
   //   getData();
   // }, []);
 
- 
+  const handleLogout = async () => {
+    try {
+      // 1. Logout from server
+      const res = await fetch(`${BASE_URL}/api/v1/users/logout`, {
+        method: 'POST',
+        credentials: 'include', // لو السيرفر بيستخدم cookies
+      });
 
+      if (!res.ok) throw new Error('Logout failed');
 
+      // 2. Clear local storage and redux
+      dispatch(adminlogout());
+      localStorage.removeItem('admin');
+      localStorage.removeItem('token');
 
-
-const handleLogout = async () => {
-  try {
-    // 1. Logout from server
-    const res = await fetch('/api/v1/users/logout', {
-      method: 'POST',
-      credentials: 'include', // لو السيرفر بيستخدم cookies
-    });
-
-    if (!res.ok) throw new Error('Logout failed');
-
-    // 2. Clear local storage and redux
-    dispatch(adminlogout());
-    localStorage.removeItem('admin');
-    localStorage.removeItem('token');
-
-    // 3. Redirect to home
-    navigate('/home');
-  } catch (error) {
-    console.error('Logout error:', error);
-  }
-};
-
-
-
-
-
-
-
+      // 3. Redirect to home
+      navigate('/home');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   // إغلاق القائمة عند الضغط خارجها
   useEffect(() => {
@@ -122,7 +110,7 @@ const handleLogout = async () => {
             to="/home"
             className="block px-4 py-2 text-sm hover:bg-gray-100"
           >
-           Home
+            Home
           </Link>
           <Link
             to="/admin"
@@ -132,7 +120,7 @@ const handleLogout = async () => {
           </Link>
           <button
             onClick={() => {
-              handleLogout() // Optional: clear token too
+              handleLogout(); // Optional: clear token too
             }}
             className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
           >

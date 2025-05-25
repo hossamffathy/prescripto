@@ -1,6 +1,6 @@
 import { CheckCircle2, Loader2, Trash2, Star } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
   const [limit] = useState(6);
@@ -12,7 +12,7 @@ export default function Reviews() {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/v1/reviews/all/reviews?page=${page}&limit=${limit}`
+        `${BASE_URL}/api/v1/reviews/all/reviews?page=${page}&limit=${limit}`
       );
       const data = await res.json();
       setReviews(data.data.reviews || []);

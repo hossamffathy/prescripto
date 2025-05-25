@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../user/userSlice';
 import { doctorlogout } from './doctorSlice';
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function DoctorMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ export default function DoctorMenu() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch("/api/v1/users/myData", {
+        const res = await fetch(`${BASE_URL}/api/v1/users/myData`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json',

@@ -1,28 +1,4 @@
-//   if (doctor.role !== "Doctor") {
-//     return (
-//       <div className="flex min-h-screen items-center justify-center bg-red-50">
-//         <div className="rounded-lg border border-red-300 bg-white p-6 shadow-md">
-//           <h1 className="text-xl font-semibold text-red-600">Access Denied</h1>
-//           <p className="mt-2 text-gray-600">
-//             You do not have permission to access this page.
-//           </p>
-//         </div>
-//       </div>
-//     );
-//   }
 
-// if (doctor.status === "pending") {
-//   return (
-//     <div className="flex min-h-screen items-center justify-center bg-yellow-50">
-//       <div className="rounded-lg border border-yellow-300 bg-white p-6 shadow-md">
-//         <h1 className="text-xl font-semibold text-yellow-600">Pending Approval</h1>
-//         <p className="mt-2 text-gray-600">
-//           Your account is under review. You will be notified once it's approved.
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
 
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -30,7 +6,8 @@ import AvailabilityList from './AvailabilityList';
 import PharmaceuticalForm from './PharmaceuticalForm';
 import DoctorHeader from './DoctorHeader';
 import FactoryForm from './FactoryForm';
-
+import Prescription from './Prescriptions';
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function DoctorManagement() {
   const doctor = useSelector((state) => state.doctor);
   const id = doctor.id;
@@ -55,7 +32,7 @@ export default function DoctorManagement() {
 
     const fetchReviews = async () => {
       try {
-        const res = await fetch(`/api/v1/reviews/doctor/${id}`); //64b093301f07f3fef0d6872b
+        const res = await fetch(`${BASE_URL}/api/v1/reviews/doctor/${id}`); //64b093301f07f3fef0d6872b
         const data = await res.json();
         setReviews(data.data?.reviews || []);
       } catch (err) {
@@ -76,7 +53,7 @@ export default function DoctorManagement() {
     );
   };
 
-  if (doctor.role !== 'Doctor') {
+    if (doctor.role !== "Doctor") {
     return (
       <div className="flex min-h-screen items-center justify-center bg-red-50">
         <div className="rounded-lg border border-red-300 bg-white p-6 shadow-md">
@@ -88,6 +65,19 @@ export default function DoctorManagement() {
       </div>
     );
   }
+
+if (doctor.status === "pending") {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-yellow-50">
+      <div className="rounded-lg border border-yellow-300 bg-white p-6 shadow-md">
+        <h1 className="text-xl font-semibold text-yellow-600">Pending Approval</h1>
+        <p className="mt-2 text-gray-600">
+          Your account is under review. You will be notified once it's approved.
+        </p>
+      </div>
+    </div>
+  );
+}
 
   return (
     <>
@@ -109,6 +99,7 @@ export default function DoctorManagement() {
             'appointments',
             'reviews',
             'availability',
+            "prescriptions",
             'pharmaceuticals',
             'factories',
           ].map((tab) => (
@@ -184,6 +175,7 @@ export default function DoctorManagement() {
           {activeTab === 'pharmaceuticals' && <PharmaceuticalForm />}
           {activeTab === 'factories' && <FactoryForm />}
           {activeTab === 'availability' && <AvailabilityList />}
+          {activeTab === 'prescriptions' && <Prescription />}
 
           {activeTab === 'patients' && (
             <div>

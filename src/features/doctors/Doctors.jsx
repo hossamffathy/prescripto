@@ -3,7 +3,9 @@ import { useLoaderData } from "react-router-dom";
 import Footer from "../home/Footer";
 import React, { useState } from "react";
 import { CalendarCheck, UserCircle } from "lucide-react";
-import {Link} from "react-router-dom"
+
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+ import {Link} from "react-router-dom"
 export default function Doctors() {
     const { allDoctors, specialists } = useLoaderData();
     const [selectedSpec, setSelectedSpec] = useState("All");
@@ -91,10 +93,10 @@ export default function Doctors() {
     );
   }
   export async function allDoctors() {
-    const res1 = await fetch("/api/v1/doctors?limit=999999&page=1");
+    const res1 = await fetch(`${BASE_URL}/api/v1/doctors?limit=999999&page=1`);
     const doctorsData = await res1.json();
   
-    const res2 = await fetch("/api/v1/doctors/specialists");
+    const res2 = await fetch(`${BASE_URL}/api/v1/doctors/specialists`);
     const specialistsData = await res2.json();
   
     return {

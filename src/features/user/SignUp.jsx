@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { Form, redirect, useActionData } from "react-router-dom";
 import {Link} from "react-router-dom"
 import login from "./userSlice"
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export async function signupAction({ request }) {
   const formData = await request.formData();
 
@@ -15,7 +16,7 @@ export async function signupAction({ request }) {
   };
 
   try {
-    const res = await fetch("/api/v1/patients/signup" , {
+    const res = await fetch(`${BASE_URL}/api/v1/patients/signup` , {
 
 
       method: "POST",

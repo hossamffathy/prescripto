@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function FactoryList() {
   const [factories, setFactories] = useState([]);
   const [loading, setLoading] = useState(true);

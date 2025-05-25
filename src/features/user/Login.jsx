@@ -3,6 +3,7 @@ import { Form, useActionData, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from './userSlice';
+ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 import { doctorLogin } from '../doctorsPage/doctorSlice';
 import { adminLogin } from '../admin/adminSlice';
 import ForgetPassword from './ForgetPassword'; // import the component
@@ -15,7 +16,7 @@ export async function loginAction({ request }) {
   };
 
   try {
-    const res = await fetch('/api/v1/users/login', {
+    const res = await fetch(`${BASE_URL}/api/v1/users/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -78,7 +79,7 @@ export default function Login() {
   }, [actionData, dispatch, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = '/api/v1/auth/google';
+    window.location.href = `${BASE_URL}/api/v1/auth/google`;
   };
 
   // Show ForgetPassword form if toggled
